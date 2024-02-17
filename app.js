@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const { celebrate, Joi, errors } = require('celebrate');
 const { login, createUser } = require('./controllers/user');
 const { auth } = require('./middlewares/auth');
-const { celebrate, Joi, errors } = require('celebrate');
 const NotFoundErr = require('./errors/NotFoundErr');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 

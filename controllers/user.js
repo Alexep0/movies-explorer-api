@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const BadRequestErr = require('../errors/BadRequestErr');
-const NotFoundErr = require('../errors/NotFoundErr');
 const {
   ValidationError,
   CastError,
 } = require('mongoose').Error;
+const BadRequestErr = require('../errors/BadRequestErr');
+const NotFoundErr = require('../errors/NotFoundErr');
+const ConflictErr = require('../errors/ConflictErr');
 
 const User = require('../models/user');
 

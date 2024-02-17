@@ -3,6 +3,9 @@ const {
   DocumentNotFoundError,
   CastError,
 } = require('mongoose').Error;
+const BadRequestErr = require('../errors/BadRequestErr');
+const NotFoundErr = require('../errors/NotFoundErr');
+const ForbiddenErr = require('../errors/ForbiddenErr');
 
 const Movie = require('../models/movie');
 
@@ -11,7 +14,7 @@ module.exports.getMovieByOwner = (req, res, next) => {
     .then((cards) => res.send(cards))
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
-        next(new NotFoundError(MOVIE_FIND_NOT_FOUND_MESSAGE));
+        next(new NotFoundErr('Запрашиваемый пользователь не найден.'));
       } else {
         next(err);
       }
