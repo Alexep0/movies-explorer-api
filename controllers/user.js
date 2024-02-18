@@ -89,6 +89,8 @@ module.exports.updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new BadRequestErr('Данные введены некорректно'));
+      } else if (err.code === 11000) {
+        next(new ConflictErr('Пользователь с таким email уже зарегестрирован'));
       } else {
         next(err);
       }
