@@ -67,7 +67,6 @@ module.exports.deleteMovie = (req, res, next) => {
       if (!card) {
         throw new NotFoundErr('Карточка не найдена');
       }
-      console.log(card);
       if (card.owner.toString() === req.user._id) {
         card.deleteOne()
           .then(() => {
