@@ -10,8 +10,12 @@ const ConflictErr = require('../errors/ConflictErr');
 
 const User = require('../models/user');
 
-module.exports.getUserById = (req, res, next) => {
-  const { userId } = req.params;
+module.exports.getUserById = async (req, res, next) => {
+  // const { userId } = req.params;
+
+  const userInfo = await User.findById(req.user._id);
+
+  const userId = userInfo._id;
 
   User.findById(userId)
     .then((user) => {

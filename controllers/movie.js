@@ -60,13 +60,15 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.cardId)
+  const { movieId } = req.params;
+  const owner = req.user._id;
+
+  Movie.findOne({ cardId: movieId, owner })
     .then((card) => {
       if (!card) {
         throw new NotFoundErr('Карточка не найдена');
       }
-
-      if (card.owner.toString() === req.user._id) {
+      if (card.owner.toString() === owner.toString()) {
         card.deleteOne()
           .then(() => {
             res.status(200).send({ data: card });
@@ -80,7 +82,7 @@ module.exports.deleteMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof CastError) {
-        next(new BadRequestErr('Данные введены некорректно'));
+        next(new BadRequestErr('Данные введены некорhректно'));
       } else {
         next(err);
       }
